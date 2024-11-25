@@ -12,6 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { QrCodeModule } from 'ng-qrcode';
 
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, MatProgressSpinnerModule,IonicStorageModule.forRoot(),QrCodeModule,],
