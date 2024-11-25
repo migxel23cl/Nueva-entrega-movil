@@ -1,0 +1,36 @@
+ion-toolbar {
+  --background: #007bb5; /* Fondo más oscuro para la barra de herramientas */
+}
+
+#recover-container {
+  padding: 20px;
+  border-radius: 8px;
+  margin: 40px 20px;
+  background-color: var(--ion-color-light); /* Fondo claro para el contenedor */
+}
+
+ion-item {
+  --padding-start: 0px;
+  margin-bottom: 15px;
+  background-color: var(--ion-color-light); /* Fondo claro para los inputs */
+  border-radius: 5px;
+}
+
+ion-label {
+  color: var(--ion-color-dark); /* Color oscuro para los labels */
+  font-weight: bold;
+}
+
+ion-input {
+color: black;
+}
+
+ion-button {
+  --background: #007bb5; /* Color de fondo para los botones */
+  color: white; /* Color del texto de los botones */
+  --border-radius: 5px;
+  margin-top: 10px;
+}
+
+
+

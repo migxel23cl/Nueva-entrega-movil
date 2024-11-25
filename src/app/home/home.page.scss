@@ -1,0 +1,78 @@
+
+ion-content {
+  --background: #022F40; 
+}
+
+h1 {
+color: white;
+justify-content: center;
+}
+
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px; 
+  border-radius: 10px; 
+  color: white;
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+
+ion-button {
+  --background: #046E8F;
+  --background-hover: #0056b3; 
+  --border-radius: 5px; 
+  --color: white; 
+  margin-top: 20px; 
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.contenido {
+  justify-content: center;
+  flex-direction: column;  
+  width: 200;
+  margin-left: 60px
+}
+
+
+#container h1{
+  text-align: center;
+}
+
+/* Elimina el fondo del contenedor del spinner */
+#carga {
+  background: transparent; /* O puedes usar 'none' para eliminar cualquier fondo */
+  box-shadow: none; /* Elimina cualquier sombra que pueda estar en el contenedor */
+}
+
+/* Opcional: Elimina el fondo de los ítems si es necesario */
+ion-item {
+  background: transparent; /* Hace el fondo del ion-item transparente */
+}
+
+/* Ajusta el spinner si es necesario */
+mat-spinner {
+  --mat-progress-spinner-stroke-width: 4px; /* Cambia el grosor del borde del spinner si es necesario */
+  width: 60px;
+  height: 60px;
+}

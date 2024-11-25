@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Botón para volver atrás -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button> <!-- defaultHref es la página a la que regresa si no hay historial -->
+    </ion-buttons>
+    
+    <ion-title>Recuperar Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="recover-container">
+    <ion-list>
+      <!-- Input para el correo -->
+      <ion-item>
+        <ion-label position="stacked">Correo Electrónico</ion-label>
+        <ion-input type="email" [(ngModel)]="correo"></ion-input>
+      </ion-item>
+
+      <!-- Botón para enviar el código -->
+      <ion-button expand="full" (click)="enviarCodigo()">
+        Recibir Código
+      </ion-button>
+
+      <!-- Separador entre el correo y el código -->
+      <div style="margin-top: 20px;"></div>
+
+      <!-- Input para el código de verificación (aparece después de recibir el código) -->
+      <ion-item *ngIf="codigoEnviado">
+        <ion-label position="stacked">Código de Verificación</ion-label>
+        <ion-input type="text" [(ngModel)]="codigo"></ion-input>
+      </ion-item>
+
+      <!-- Botón para mostrar la contraseña (aparece después de recibir el código) -->
+      <ion-button expand="full" (click)="mostrarContrasena()" *ngIf="codigoEnviado">
+        RECUPERAR
+      </ion-button>
+
+      <!-- Label que muestra la contraseña recuperada -->
+      <ion-item *ngIf="contrasenaRecuperada">
+        <ion-label>Tu Contraseña: {{ contrasena }}</ion-label>
+      </ion-item>
+
+      <!-- Botón para volver al login (aparece después de mostrar la contraseña) -->
+      <ion-button expand="full" (click)="volverAlLogin()" *ngIf="contrasenaRecuperada">
+        Volver al Login
+      </ion-button>
+    </ion-list>
+  </div>
+</ion-content>
+
+
+
+
+

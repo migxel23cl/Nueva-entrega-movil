@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Error</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-text-center ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Error</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="error-container">
+    <ion-title size="large" class="error-title">
+      Error de servidor
+    </ion-title>
+    <ion-button expand="full" (click)="volverAtras()">
+      Pulse aquí para volver atrás
+    </ion-button>
+  </div>
+</ion-content>
+

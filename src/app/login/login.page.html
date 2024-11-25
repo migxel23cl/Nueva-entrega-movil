@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="login-container">
+    <form (ngSubmit)="iniciarSesion()" #loginForm="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label>Correo: </ion-label>
+          <ion-input type="text" [(ngModel)]="correo" name="correo" required (ngModelChange)="errorMessage = ''"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Contraseña: </ion-label>
+          <ion-input type="password" [(ngModel)]="contrasena" name="contrasena" required></ion-input>
+        </ion-item>
+
+        <!-- Enlace para recuperar contraseña -->
+        <ion-text color="primary">
+          <a [routerLink]="['/recuperar']" class="recover-link">Recuperar contraseña</a>
+        </ion-text>
+
+        <!-- Botón de iniciar sesión -->
+        <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid">
+          Iniciar Sesión
+        </ion-button>
+
+        <!-- Enlace para el registro -->
+        <ion-text color="primary">
+          <a [routerLink]="['/registro']" class="register-link">¿No tienes cuenta? Regístrate</a>
+        </ion-text>
+
+        <!-- Botón para ir a la vista de administración -->
+        <ion-button expand="full" fill="outline" (click)="irAAdmin()">
+          Ir a Admin
+        </ion-button>
+
+        <!-- Mensaje de error -->
+        <ion-text color="danger" *ngIf="errorMessage">
+          <p>{{ errorMessage }}</p>
+        </ion-text>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>
+
+
+
+
+
+
+

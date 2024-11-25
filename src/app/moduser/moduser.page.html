@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Modificar Usuario</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="moduser-container">
+    <ion-list>
+      <ion-item>
+        <ion-label>Correo: </ion-label>
+        <ion-input type="text" value="{{ usuario?.correo }}" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Contraseña Actual: </ion-label>
+        <ion-input type="password" value="{{ usuario?.contrasena }}" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nueva Contraseña: </ion-label>
+        <ion-input type="password" [(ngModel)]="nuevaContrasena" required></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+  </div>
+</ion-content>
+
