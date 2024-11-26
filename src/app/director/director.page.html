@@ -16,15 +16,23 @@
   </ion-header>
 
   <div class="container">
-    <h2>Bienvenido, {{ nombreUsuario }}</h2>
-    <ion-button expand="full">
-      Escanear Codigo
+    <h2>Bienvenido,</h2>
+    <ion-button expand="full" (click)="startScan()">
+      Escanear Código
     </ion-button>
     <div style="margin-top: 20px;">
-      <ion-button expand="full" (click)="generarCodigo()">
-        Generador Codigo
+      <ion-button expand="full" (click)="navigateToQrPage()">
+        Generador Código
       </ion-button>
     </div>
   </div>
+
+  <ion-item class="result" *ngIf="scanResult" lines="none">
+    <ion-label>
+      <p>Resultado del Escaneo</p>
+      <div>{{scanResult}}</div>
+    </ion-label>       
+  </ion-item>
 </ion-content>
+
 

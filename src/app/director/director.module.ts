@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DirectorPageRoutingModule } from './director-routing.module';
 
 import { DirectorPage } from './director.page';
+import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { DirectorPage } from './director.page';
     IonicModule,
     DirectorPageRoutingModule
   ],
-  declarations: [DirectorPage]
+  declarations: [DirectorPage,BarcodeScanningModalComponent]
 })
 export class DirectorPageModule {}
