@@ -32,12 +32,11 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"
-                android:value="barcode_ui"></meta-data>
+                android:value="barcode_ui"/>
         </provider>
     </application>
 
     <!-- Permissions -->
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- Permiso para abrir camara. -->
+    <uses-permission android:name="android.permission.INTERNET" /><!-- Permiso para abrir camara. -->
 </manifest>
