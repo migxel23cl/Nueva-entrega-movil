@@ -14,19 +14,9 @@
       <ion-title size="large">Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let barcode of barcodes">
-        <ion-label position="stacked">{{ barcode.format }}</ion-label>
-        <ion-input type="text" [value]="barcode.rawValue"></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button (click)="scan()">
-        <ion-icon name="scan"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <ion-button expand="full" (click)="openScanner()">
+      Escanear Código
+    </ion-button>
     <div style="margin-top: 20px;">
       <ion-button expand="full" (click)="navigateToQrPage()">
         Generador Código

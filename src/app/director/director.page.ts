@@ -1,44 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
-import { AlertController } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { ModalController, AlertController } from '@ionic/angular';
+import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
+import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-director',
-  templateUrl: 'director.page.html',
-  styleUrls: ['director.page.scss'],
+  templateUrl: './director.page.html',
+  styleUrls: ['./director.page.scss'],
 })
-export class DirectorPage implements OnInit {
-  isSupported = false;
-  barcodes: Barcode[] = [];
+export class DirectorPage {
+  constructor(
+    private modalController: ModalController,
+    private alertController: AlertController,
+    private router: Router
+  ) {}
 
-  constructor(private alertController: AlertController,private router: Router) {}
-
-  ngOnInit() {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
-  }
-
-  async scan(): Promise<void> {
-    const granted = await this.requestPermissions();
-    if (!granted) {
-      this.presentAlert();
+  async openScanner(): Promise<void> {
+    // Solicitar permisos de cámara
+    const hasPermission = await this.requestCameraPermission();
+    if (!hasPermission) {
+      this.showPermissionAlert();
       return;
     }
-    const { barcodes } = await BarcodeScanner.scan();
-    this.barcodes.push(...barcodes);
+
+    // Abrir el modal del escáner si se otorgaron los permisos
+    const modal = await this.modalController.create({
+      component: BarcodeScanningModalComponent,
+      componentProps: {
+        formats: ['QR_CODE', 'EAN_13'], // Formatos deseados
+        lensFacing: 'back', // Lente trasera
+      },
+      cssClass: 'barcode-scanning-modal',
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data && result.data.barcode) {
+        console.log('Código escaneado:', result.data.barcode.rawValue);
+        // Maneja el código escaneado
+      }
+    });
+
+    await modal.present();
   }
 
-  async requestPermissions(): Promise<boolean> {
+  // Método para solicitar permisos de cámara
+  private async requestCameraPermission(): Promise<boolean> {
     const { camera } = await BarcodeScanner.requestPermissions();
     return camera === 'granted' || camera === 'limited';
   }
 
-  async presentAlert(): Promise<void> {
+  // Mostrar alerta si no se otorgaron los permisos
+  private async showPermissionAlert(): Promise<void> {
     const alert = await this.alertController.create({
-      header: 'Permission denied',
-      message: 'Please grant camera permission to use the barcode scanner.',
+      header: 'Permiso denegado',
+      message: 'Se necesita el permiso de cámara para usar el escáner de códigos.',
       buttons: ['OK'],
     });
     await alert.present();
@@ -48,3 +64,6 @@ export class DirectorPage implements OnInit {
     this.router.navigate(['/qrpage']);
   }
 }
+
+
+
