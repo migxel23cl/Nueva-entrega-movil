@@ -1,58 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, Platform, LoadingController } from '@ionic/angular';
-import { LensFacing } from '@capacitor-mlkit/barcode-scanning';
-import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component'; // Componente del modal
-import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-director',
-  templateUrl: './director.page.html',
-  styleUrls: ['./director.page.scss'],
+  templateUrl: 'director.page.html',
+  styleUrls: ['director.page.scss'],
 })
 export class DirectorPage implements OnInit {
-  qrText = '';
+  isSupported = false;
+  barcodes: Barcode[] = [];
 
-  scanResult= '';
-   //Almacena el texto del código escaneado
-   constructor(
-    private modalController: ModalController,
-    private platform: Platform,
-    private router:Router
-  ) {}
+  constructor(private alertController: AlertController,private router: Router) {}
 
-  ngOnInit(): void {
-    if(this.platform.is('capacitor')){
-      BarcodeScanner.isSupported().then();
-      BarcodeScanner.checkPermissions().then();
-      BarcodeScanner.removeAllListeners()
-    }
+  ngOnInit() {
+    BarcodeScanner.isSupported().then((result) => {
+      this.isSupported = result.supported;
+    });
   }
 
-  async startScan() {
-    // Crear el modal para iniciar el escaneo
-    const modal = await this.modalController.create({
-      component: BarcodeScanningModalComponent, // Componente del modal,
-      cssClass:'barcode-scanning-modal',
-      showBackdrop:false,
-      componentProps: {
-        formats: ['QR_CODE'], // Tipos de código admitidos, ejemplo: ['QR_CODE']
-        lensFacing: LensFacing.Back, // Usa la cámara trasera
-      },
-    });
-
-    // Abre el modal
-    await modal.present();
-
-    // Recoge los datos del código escaneado al cerrar el modal
-    const { data } = await modal.onWillDismiss();
-
-
-    if (data){
-      this.scanResult=data?.barcode?.displayValue;
+  async scan(): Promise<void> {
+    const granted = await this.requestPermissions();
+    if (!granted) {
+      this.presentAlert();
+      return;
     }
+    const { barcodes } = await BarcodeScanner.scan();
+    this.barcodes.push(...barcodes);
+  }
+
+  async requestPermissions(): Promise<boolean> {
+    const { camera } = await BarcodeScanner.requestPermissions();
+    return camera === 'granted' || camera === 'limited';
+  }
+
+  async presentAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Permission denied',
+      message: 'Please grant camera permission to use the barcode scanner.',
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   navigateToQrPage() {
