@@ -34,10 +34,12 @@ export class DirectorPage {
       cssClass: 'barcode-scanning-modal',
     });
 
-    modal.onDidDismiss().then((result) => {
+    modal.onDidDismiss().then(async (result) => {
       if (result.data && result.data.barcode) {
-        console.log('Código escaneado:', result.data.barcode.rawValue);
-        // Maneja el código escaneado
+        const scannedText = result.data.barcode.rawValue;
+        console.log('Código escaneado:', scannedText);
+        // Mostrar el texto escaneado en una alerta
+        await this.showScannedCodeAlert(scannedText);
       }
     });
 
@@ -60,10 +62,21 @@ export class DirectorPage {
     await alert.present();
   }
 
+  // Mostrar alerta con el texto escaneado
+  private async showScannedCodeAlert(scannedText: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Código Escaneado',
+      message: scannedText || 'No se pudo leer el código.',
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+
   navigateToQrPage() {
     this.router.navigate(['/qrpage']);
   }
 }
+
 
 
 

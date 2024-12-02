@@ -1,9 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button> 
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    
     <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,14 +13,17 @@
       <ion-title size="large">Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
-    <ion-button expand="full" (click)="openScanner()">
-      Escanear Código
+  
+  <ion-button expand="full" (click)="openScanner()">
+    Escanear Código
+  </ion-button>
+  
+  <div style="margin-top: 20px;">
+    <ion-button expand="full" (click)="navigateToQrPage()">
+      Generador Código
     </ion-button>
-    <div style="margin-top: 20px;">
-      <ion-button expand="full" (click)="navigateToQrPage()">
-        Generador Código
-      </ion-button>
-    </div>
+  </div>
 </ion-content>
+
 
 
